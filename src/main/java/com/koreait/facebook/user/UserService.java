@@ -1,5 +1,6 @@
 package com.koreait.facebook.user;
 
+import com.koreait.facebook.common.EmailService;
 import com.koreait.facebook.common.EmailServiceImpl;
 import com.koreait.facebook.user.model.UserEntity;
 import org.mindrot.jbcrypt.BCrypt;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     @Autowired
-    private EmailServiceImpl email;
+    private EmailService email;
 
     @Autowired
     private UserMapper mapper;
