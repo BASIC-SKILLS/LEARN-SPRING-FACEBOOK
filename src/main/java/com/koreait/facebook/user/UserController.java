@@ -26,6 +26,12 @@ public class UserController {
         service.join(userEntity);
         return "redirect:/feed/home";
     }
+
+    @GetMapping("/email")
+    public String email() {
+        service.sendEmail();
+        return "";
+    }
 }
 
 
