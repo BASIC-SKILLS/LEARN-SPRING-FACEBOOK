@@ -16,7 +16,7 @@ public class UserController {
     private UserService service;
 
     @GetMapping("/login")
-    public void login() {}
+    public void login(UserEntity userEntity) {}
 
     @GetMapping("/join")
     public void join(UserEntity userEntity) {}
@@ -24,7 +24,7 @@ public class UserController {
     @PostMapping("/join")
     public String joinProc(UserEntity userEntity) {
         service.join(userEntity);
-        return "redirect:/feed/home";
+        return "redirect:login?needEmail=1";
     }
 
     @GetMapping("/auth")
