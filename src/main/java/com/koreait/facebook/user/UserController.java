@@ -27,10 +27,10 @@ public class UserController {
         return "redirect:/feed/home";
     }
 
-    @GetMapping("/email")
-    public String email() {
-        service.sendEmail();
-        return "";
+    @GetMapping("/auth")
+    public String auth(UserEntity param) {
+        int result = service.auth(param);
+        return "redirect:login?auth=" + result;
     }
 }
 
