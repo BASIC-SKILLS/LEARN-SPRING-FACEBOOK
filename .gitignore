@@ -7,3 +7,5 @@ application.yaml
 .mvn\
 .idea\
 target\
+test\
+target\
