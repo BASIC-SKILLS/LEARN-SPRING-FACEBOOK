@@ -1,4 +1,15 @@
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: c01030249887
+    password: loigwmpeqdcpclrh
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   thymeleaf:
     check-template-location: true
     prefix: classpath:templates/
