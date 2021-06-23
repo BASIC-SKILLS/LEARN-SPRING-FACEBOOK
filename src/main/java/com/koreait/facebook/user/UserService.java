@@ -1,9 +1,12 @@
 package com.koreait.facebook.user;
 
 import com.koreait.facebook.common.EmailService;
+import com.koreait.facebook.common.MyFileUtils;
 import com.koreait.facebook.common.MySecurityUtils;
+import com.koreait.facebook.security.IAuthenticationFacade;
 import com.koreait.facebook.user.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +21,12 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private IAuthenticationFacade auth;
+
+    @Autowired
+    private MyFileUtils myFileUtils;
 
     @Autowired
     private UserMapper mapper;
@@ -46,6 +55,12 @@ public class UserService {
     }
 
     public void profileImg(MultipartFile[] imgArr) {
+        int iuser = auth.getLoginUserPk();
+        System.out.println("iuser : " + iuser);
+        String target = "profile/" + iuser;
 
+        for(MultipartFile img : imgArr) {
+            String saveFileNm = myFileUtils.transferTo(img, target);
+        }
     }
 }

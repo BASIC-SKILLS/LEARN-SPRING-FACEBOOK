@@ -32,6 +32,10 @@ public class UserDetailsImpl implements UserDetails {
         return user.getNm();
     }
 
+    public UserEntity getUser() {
+        return user;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

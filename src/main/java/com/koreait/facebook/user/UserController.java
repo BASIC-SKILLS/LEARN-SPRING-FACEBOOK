@@ -38,8 +38,8 @@ public class UserController {
     public void profile() {}
 
     @PostMapping("/profileImg")
-    public String profileImg(MultipartFile[] img) {
-        service.profileImg(img);
+    public String profileImg(MultipartFile[] imgArr) {
+        service.profileImg(imgArr);
         return "redirect:profile";
     }
 }
