@@ -5,6 +5,7 @@ import com.koreait.facebook.common.MyFileUtils;
 import com.koreait.facebook.common.MySecurityUtils;
 import com.koreait.facebook.security.IAuthenticationFacade;
 import com.koreait.facebook.user.model.UserEntity;
+import com.koreait.facebook.user.model.UserProfileEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,10 +63,15 @@ public class UserService {
         System.out.println("iuser : " + iuser);
         String target = "profile/" + iuser;
 
+        UserProfileEntity param = new UserProfileEntity();
+        param.setIuser(iuser);
+
         for(MultipartFile img : imgArr) {
             String saveFileNm = myFileUtils.transferTo(img, target);
-            //saveFileNm이 null이 아니라면 t_user_profile 테이블에
-            //insert를 해주세요.
+            if(saveFileNm != null) {
+                param.setImg(saveFileNm);
+                profileMapper.insUserProfile(param);
+            }
         }
     }
 }

@@ -21,4 +21,6 @@
         WHERE email = #{email} AND authCd = #{authCd}
     </update>
 
+
+
 </mapper>
