@@ -59,18 +59,28 @@ public class UserService {
     }
 
     public void profileImg(MultipartFile[] imgArr) {
-        int iuser = auth.getLoginUserPk();
+        UserEntity loginUser = auth.getLoginUser();
+        int iuser = loginUser.getIuser(); //11
+
         System.out.println("iuser : " + iuser);
         String target = "profile/" + iuser;
 
         UserProfileEntity param = new UserProfileEntity();
-        param.setIuser(iuser);
+        param.setIuser(iuser); //11
 
         for(MultipartFile img : imgArr) {
-            String saveFileNm = myFileUtils.transferTo(img, target);
+            String saveFileNm = myFileUtils.transferTo(img, target); //"weioj435lknsio.jpg"
             if(saveFileNm != null) {
                 param.setImg(saveFileNm);
-                profileMapper.insUserProfile(param);
+                if(profileMapper.insUserProfile(param) == 1 && loginUser.getMainProfile() == null) {
+                    UserEntity param2 = new UserEntity();
+                    param2.setIuser(iuser); //11
+                    param2.setMainProfile(saveFileNm);
+
+                    if(mapper.updUser(param2) == 1) {
+                        loginUser.setMainProfile(saveFileNm);
+                    }
+                }
             }
         }
     }
