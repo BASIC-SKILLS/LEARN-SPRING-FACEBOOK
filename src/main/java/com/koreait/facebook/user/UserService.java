@@ -31,6 +31,9 @@ public class UserService {
     @Autowired
     private UserMapper mapper;
 
+    @Autowired
+    private UserProfileMapper profileMapper;
+
     public int join(UserEntity param) {
         String authCd = secUtils.getRandomDigit(5);
 
@@ -61,6 +64,8 @@ public class UserService {
 
         for(MultipartFile img : imgArr) {
             String saveFileNm = myFileUtils.transferTo(img, target);
+            //saveFileNm이 null이 아니라면 t_user_profile 테이블에
+            //insert를 해주세요.
         }
     }
 }
