@@ -91,4 +91,10 @@ public class UserService {
     public List<UserProfileEntity> selUserProfileList(UserEntity param) {
         return profileMapper.selUserProfileList(param);
     }
+
+    //메인 이미지 변경
+    public int updUserMainProfile(UserProfileEntity param) {
+        param.setIuser(auth.getLoginUserPk());
+        return mapper.updUserMainProfile(param);
+    }
 }

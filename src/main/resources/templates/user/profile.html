@@ -14,6 +14,7 @@
     </th:block>
 
     <th:block layout:fragment="content" th:with="auth=${#authentication.getPrincipal().getUser()}">
+        <div th:attr="data-main-profile=${auth.mainProfile}"></div>
         <form th:action="@{profileImg}" method="post" enctype="multipart/form-data">
             <div>
                 이미지 : <input type="file" name="imgArr" multiple accept="image/*">
@@ -37,7 +38,12 @@
                     <div class="swiper-wrapper">
                         <!-- Slides -->
                         <div class="swiper-slide" th:each="item : ${profileList}">
-                            <img th:src="@{/pic/profile/{iuser}/{img}(iuser=${auth.iuser}, img=${item.img})}">
+                            <div>
+                                <div th:id="'img_' + ${item.iprofile}" th:unless="${item.img == auth.mainProfile}">
+                                    <i class="no-main-profile pointer fas fa-bell" th:attr="data-iprofile=${item.iprofile}"></i>
+                                </div>
+                                <img th:src="@{/pic/profile/{iuser}/{img}(iuser=${auth.iuser}, img=${item.img})}">
+                            </div>
                         </div>
                     </div>
                     <!-- If we need pagination -->
@@ -57,7 +63,7 @@
             const swiper = new Swiper('.swiper-container', {
                 // Optional parameters
                 direction: 'horizontal',
-                loop: true,
+                loop: false,
 
                 // If we need pagination
                 pagination: {

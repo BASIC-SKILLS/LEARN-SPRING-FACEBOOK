@@ -6,3 +6,4 @@
 .swiper-container { height: 40vw; width: 90vw; }
 .swiper-slide { display: flex; justify-content: center; }
 
+.no-main-profile { font-size: 30px; }
