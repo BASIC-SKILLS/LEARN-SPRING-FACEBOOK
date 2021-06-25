@@ -5,14 +5,32 @@
 
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/user/profile.css}">
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     </th:block>
 
-    <th:block layout:fragment="content">
+    <th:block layout:fragment="js">
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    </th:block>
+
+    <th:block layout:fragment="content" th:with="auth=${#authentication.getPrincipal().getUser()}">
         <form th:action="@{profileImg}" method="post" enctype="multipart/form-data">
             <div>
                 이미지 : <input type="file" name="imgArr" multiple accept="image/*">
                 <input type="submit" value="업로드">
             </div>
         </form>
+
+        <div id="flexContainer" th:if="${auth.mainProfile != null}">
+            <div>
+                <img class="profile w200"
+                     th:src="@{/pic/profile/{iuser}/{img}(iuser=${auth.iuser}, img=${auth.mainProfile})}">
+            </div>
+        </div>
+
+        <div class="modal hide">
+            <div></div>
+
+        </div>
+
     </th:block>
 </html>

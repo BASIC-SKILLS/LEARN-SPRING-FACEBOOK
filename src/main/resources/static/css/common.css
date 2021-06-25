@@ -48,14 +48,14 @@ nav {
     align-items: center;
 }
 
-.header__right .menus li {
-    flex-grow: 1;
-}
+.header__right .menus li { flex-grow: 1; }
 
 #container {
     margin-top: 80px;
     padding: 30px;
 }
+.hide { display: none; }
+.modal { z-index: 100; position: fixed; top: 0; left: 0; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.87);}
 
 .profile { border-radius: 50%; }
 .w50 { width: 50px; }
