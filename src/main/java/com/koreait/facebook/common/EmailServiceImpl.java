@@ -34,7 +34,6 @@ public class EmailServiceImpl implements EmailService {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(text, true);
-
             emailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
