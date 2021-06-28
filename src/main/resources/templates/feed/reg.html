@@ -4,16 +4,18 @@
       layout:decorator="basicLayout">
     <head><title>피드 등록</title></head>
 
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/feed/reg.css}">
+    </th:block>
     <th:block layout:fragment="js">
         <script defer th:src="@{/js/feed/reg.js}"></script>
     </th:block>
 
     <th:block layout:fragment="content">
         <h1>Reg</h1>
-        <form th:action="@{reg}" method="post" enctype="multipart/form-data" th:object="${feedEntity}">
-            <div><textarea th:field="*{ctnt}" placeholder="지금 무슨 생각을 하고 계신가요?"></textarea></div>
-            <div><input id="imgArr" type="file" name="imgArr" multiple accept="image/*" placeholder="피드 이미지"></div>
-        </form>
-        <div id="selectedImgList"></div>
+        <div><textarea id="ctnt" placeholder="지금 무슨 생각을 하고 계신가요?"></textarea></div>
+        <div><input type="file" id="selectImgArr" multiple accept="image/*"></div>
+        <div><input type="button" id="btnUpload" value="등록" disabled></div>
+        <div id="displayImgList"></div>
     </th:block>
 </html>
