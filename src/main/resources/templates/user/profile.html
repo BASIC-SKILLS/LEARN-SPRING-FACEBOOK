@@ -41,11 +41,12 @@
                         <div class="swiper-slide" th:each="item : ${profileList}">
                             <div>
                                 <div class="profile-img-parent" th:attr="data-iprofile=${item.iprofile}">
-                                    <i th:unless="${item.img == auth.mainProfile}" class="no-main-profile pointer fas fa-bell"></i>
+                                    <i th:if="${item.img != auth.mainProfile}" class="no-main-profile pointer fas fa-bell"></i>
                                 </div>
                                 <img th:src="@{/pic/profile/{iuser}/{img}(iuser=${auth.iuser}, img=${item.img})}">
                             </div>
                         </div>
+
                     </div>
                     <!-- If we need pagination -->
                     <div class="swiper-pagination"></div>
