@@ -1,19 +1,21 @@
 package com.koreait.facebook.feed;
 
+import com.koreait.facebook.common.MyConst;
 import com.koreait.facebook.feed.model.FeedEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/feed")
 public class FeedController {
 
-    @Autowired
-    private FeedService service;
+    @Autowired private FeedService service;
+    @Autowired private MyConst myConst;
 
     @GetMapping("/home")
     public void home() {}
@@ -24,7 +26,8 @@ public class FeedController {
     @ResponseBody
     @PostMapping("/reg")
     public Map<String, Integer> reg(MultipartFile[] imgArr, FeedEntity param) {
-        service.reg(imgArr, param);
-        return null;
+        Map<String, Integer> res = new HashMap();
+        res.put(myConst.RESULT, service.reg(imgArr, param));
+        return res;
     }
 }

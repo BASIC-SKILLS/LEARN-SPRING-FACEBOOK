@@ -65,7 +65,14 @@ btnUploadElem.addEventListener('click', () => {
         body: data
     }).then(res => res.json())
       .then(myJson => {
-        console.log(myJson);
+          switch(myJson.result) {
+              case 0:
+                  alert('피드 등록에 실패하였습니다.');
+                  break;
+              case 1:
+                  location.href = '/feed/home';
+                  break;
+          }
       });
 
 })
