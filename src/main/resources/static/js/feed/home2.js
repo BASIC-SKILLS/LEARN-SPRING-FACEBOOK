@@ -6,26 +6,22 @@ function getFeedList() {
         .then(res => res.json())
         .then(myJson => {
             console.log(myJson);
-            //makeFeedList(myJson);
+            makeFeedList(myJson);
         });
 }
 
 function makeFeedList(data) {
     if(data.length == 0) { return; }
-    let beforeifeed = 0;
-    let swiperWrapperDiv = null;
+
     for(let i=0; i<data.length; i++) {
         const item = data[i];
 
-        if(beforeifeed !== item.ifeed) {
-            beforeifeed = item.ifeed;
+        const itemContainer = document.createElement('div');
+        itemContainer.classList.add('item');
 
-            const itemContainer = document.createElement('div');
-            itemContainer.classList.add('item');
-
-            const topDiv = document.createElement('div');
-            topDiv.classList.add('top')
-            topDiv.innerHTML = `
+        const topDiv = document.createElement('div');
+        topDiv.classList.add('top')
+        topDiv.innerHTML = `
             <div class="itemProfileCont">
                 <img src="/pic/profile/${item.iuser}/${item.mainProfile}">
             </div>
@@ -33,39 +29,41 @@ function makeFeedList(data) {
                 <div>${item.writer}</div>
                 <div>${item.location == null ? '' : item.location}</div>
             </div>
-            `;
-            const imgDiv = document.createElement('div');
-            imgDiv.classList.add('itemImg');
+        `;
 
-            const swiperContainerDiv = document.createElement('div');
-            swiperContainerDiv.classList.add('swiper-container');
+        const imgDiv = document.createElement('div');
+        imgDiv.classList.add('itemImg');
 
-            swiperWrapperDiv = document.createElement('div');
-            swiperWrapperDiv.classList.add('swiper-wrapper');
+        const swiperContainerDiv = document.createElement('div');
+        swiperContainerDiv.classList.add('swiper-container');
 
-            swiperContainerDiv.append(swiperWrapperDiv);
-            imgDiv.append(swiperContainerDiv);
+        const swiperWrapperDiv = document.createElement('div');
+        swiperWrapperDiv.classList.add('swiper-wrapper');
 
-            itemContainer.append(topDiv);
-            itemContainer.append(imgDiv);
-            if(item.ctnt != null) {
-                const ctntDiv = document.createElement('div');
-                ctntDiv.innerText = item.ctnt;
-                ctntDiv.classList.add('itemCtnt');
-                itemContainer.append(ctntDiv);
-            }
-            feedContainerElem.append(itemContainer);
-        }
+        swiperContainerDiv.append(swiperWrapperDiv);
+        imgDiv.append(swiperContainerDiv);
 
-        if(item.img != null) {
-            const swiperSlideDiv = document.createElement('div')
+        for(let z=0; z<item.imgList.length; z++) {
+            const imgObj = item.imgList[z];
+
+            const swiperSlideDiv = document.createElement('div');
             swiperSlideDiv.classList.add('swiper-slide');
 
             const img = document.createElement('img');
-            img.src = `/pic/feed/${item.ifeed}/${item.img}`;
+            img.src = `/pic/feed/${item.ifeed}/${imgObj.img}`;
             swiperSlideDiv.append(img);
             swiperWrapperDiv.append(swiperSlideDiv);
         }
+
+        itemContainer.append(topDiv);
+        itemContainer.append(imgDiv);
+        if(item.ctnt != null) {
+            const ctntDiv = document.createElement('div');
+            ctntDiv.innerText = item.ctnt;
+            ctntDiv.classList.add('itemCtnt');
+            itemContainer.append(ctntDiv);
+        }
+        feedContainerElem.append(itemContainer);
     }
 
     const swiper = new Swiper('.swiper-container', {
