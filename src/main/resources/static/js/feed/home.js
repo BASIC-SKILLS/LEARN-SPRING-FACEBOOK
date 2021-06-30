@@ -35,6 +35,8 @@ function makeFeedList(data) {
             </div>
             `;
             const imgDiv = document.createElement('div');
+            imgDiv.classList.add('itemImg');
+
             const swiperContainerDiv = document.createElement('div');
             swiperContainerDiv.classList.add('swiper-container');
 
@@ -49,6 +51,7 @@ function makeFeedList(data) {
             if(item.ctnt != null) {
                 const ctntDiv = document.createElement('div');
                 ctntDiv.innerText = item.ctnt;
+                ctntDiv.classList.add('itemCtnt');
                 itemContainer.append(ctntDiv);
             }
             feedContainerElem.append(itemContainer);
