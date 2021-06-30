@@ -1,17 +1,32 @@
 const feedContainerElem = document.querySelector('#feedContainer');
+const loadingElem = document.querySelector('.loading');
+const limit = 5;
+let currentPage = 1;
+let itemLength = 0;
+
+//로딩 show/hide
+function hideLoading() { loadingElem.classList.add('hide'); }
+function showLoading() { loadingElem.classList.remove('hide'); }
 
 //피드 리스트 가져오기
-function getFeedList() {
-    fetch('list2')
+function getFeedList(page=1) {
+    showLoading();
+
+    fetch(`list2?page=${page}&limit=${limit}`)
         .then(res => res.json())
         .then(myJson => {
             console.log(myJson);
             makeFeedList(myJson);
+        }).catch(err => {
+           console.log(err);
+        }).then(() => {
+            hideLoading();
         });
 }
 
 function makeFeedList(data) {
-    if(data.length == 0) { return; }
+    itemLength = data.length;
+    if(itemLength == 0) { return; }
 
     for(let i=0; i<data.length; i++) {
         const item = data[i];
@@ -72,5 +87,18 @@ function makeFeedList(data) {
     });
 }
 
-getFeedList();
+getFeedList(currentPage);
+
+window.addEventListener('scroll', () => {
+    const {
+        scrollTop,
+        scrollHeight,
+        clientHeight
+    } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight - 5 && itemLength === limit) {
+        itemLength = 0;
+        getFeedList(currentPage++);
+    }
+}, { passive: true });
 
