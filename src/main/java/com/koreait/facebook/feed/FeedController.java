@@ -2,6 +2,7 @@ package com.koreait.facebook.feed;
 
 import com.koreait.facebook.common.MyConst;
 import com.koreait.facebook.feed.model.FeedDomain;
+import com.koreait.facebook.feed.model.FeedDomain2;
 import com.koreait.facebook.feed.model.FeedEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,5 +38,11 @@ public class FeedController {
     @GetMapping("/list")
     public List<FeedDomain> selFeedList() {
         return service.selFeedList();
+    }
+
+    @ResponseBody
+    @GetMapping("/list2")
+    public List<FeedDomain2> selFeedList2() {
+        return service.selFeedList2();
     }
 }

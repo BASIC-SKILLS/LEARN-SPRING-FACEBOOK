@@ -2,11 +2,11 @@ const feedContainerElem = document.querySelector('#feedContainer');
 
 //피드 리스트 가져오기
 function getFeedList() {
-    fetch('list')
+    fetch('list2')
         .then(res => res.json())
         .then(myJson => {
             console.log(myJson);
-            makeFeedList(myJson);
+            //makeFeedList(myJson);
         });
 }
 
@@ -17,7 +17,7 @@ function makeFeedList(data) {
     for(let i=0; i<data.length; i++) {
         const item = data[i];
 
-        if(beforeifeed !== item.ifeed) { //새로운 feed 시작이다.
+        if(beforeifeed !== item.ifeed) {
             beforeifeed = item.ifeed;
 
             const itemContainer = document.createElement('div');
