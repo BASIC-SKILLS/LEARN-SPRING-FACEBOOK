@@ -41,6 +41,9 @@
         FROM t_feed A
         INNER JOIN t_user C
         ON A.iuser = C.iuser
+        <if test="iuser > 0">
+            AND C.iuser = ${iuser}
+        </if>
         ORDER BY A.ifeed DESC
         LIMIT #{startIdx}, #{limit}
     </select>
