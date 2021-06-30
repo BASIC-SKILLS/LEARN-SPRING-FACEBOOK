@@ -77,7 +77,7 @@ const feedObj = {
 
             if (scrollTop + clientHeight >= scrollHeight - 5 && this.itemLength === this.limit) {
                 this.itemLength = 0;
-                this.getFeedList(this.currentPage++);
+                this.getFeedList(++this.currentPage);
             }
         }, { passive: true });
     },
