@@ -15,6 +15,7 @@ const feedObj = {
             const itemContainer = document.createElement('div');
             itemContainer.classList.add('item');
 
+            // 글쓴이 정보 영역
             const topDiv = document.createElement('div');
             topDiv.classList.add('top')
             topDiv.innerHTML = `
@@ -26,7 +27,7 @@ const feedObj = {
                 <div>${item.location == null ? '' : item.location}</div>
             </div>
         `;
-
+            //이미지영역
             const imgDiv = document.createElement('div');
             imgDiv.classList.add('itemImg');
 
@@ -53,7 +54,25 @@ const feedObj = {
 
             itemContainer.append(topDiv);
             itemContainer.append(imgDiv);
-            if(item.ctnt != null) {
+
+            //좋아요 영역
+            const favDiv = document.createElement('div');
+            favDiv.classList.add('favCont');
+            const heartIcon = document.createElement('i');
+            heartIcon.className = 'fa-heart pointer';
+            if(item.isFav === 1) { //좋아요 O
+                heartIcon.classList.add('fas');
+            } else { //좋아요 X
+                heartIcon.classList.add('far');
+            }
+            favDiv.append(heartIcon);
+
+            const heartCntSpan = document.createElement('span');
+            heartCntSpan.innerText = item.favCnt;
+            favDiv.append(heartCntSpan);
+
+            itemContainer.append(favDiv);
+            if(item.ctnt != null) { // 글내용 영역
                 const ctntDiv = document.createElement('div');
                 ctntDiv.innerText = item.ctnt;
                 ctntDiv.classList.add('itemCtnt');
