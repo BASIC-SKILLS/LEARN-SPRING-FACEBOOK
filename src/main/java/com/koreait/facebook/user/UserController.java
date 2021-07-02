@@ -31,7 +31,9 @@ public class UserController {
     private MyConst myConst;
 
     @GetMapping("/login")
-    public void login(UserEntity userEntity) {}
+    public void login(UserEntity userEntity) {
+        userEntity.setEmail("pirbak@daum.net");
+    }
 
     @GetMapping("/join")
     public void join(UserEntity userEntity) {}

@@ -4,6 +4,7 @@
 
     <resultMap id="FeedDomainMap" type="FeedDomain2">
         <result property="ifeed" column="ifeed"></result>
+        <association property="cmt" column="ifeed" select="selFeedCmt"></association>
         <collection property="imgList" column="ifeed" select="selFeedImgList"></collection>
     </resultMap>
 
@@ -68,8 +69,6 @@
         WHERE ifeed = #{ifeed}
     </select>
 
-
-
     <!-- //////////////////////////// fav ///////////////////////-->
     <insert id="insFeedFav">
         INSERT INTO t_feed_fav
@@ -83,4 +82,38 @@
         WHERE ifeed = #{ifeed}
         AND iuser = #{iuser}
     </delete>
+
+    <!-- //////////////////////////// cmt ///////////////////////-->
+    <select id="selFeedCmt" resultType="FeedCmtDomain">
+        SELECT
+            A.icmt, A.cmt, A.regdt
+            , B.iuser, B.nm as writer, B.mainProfile as writerProfile
+        FROM t_feed_cmt A
+        INNER JOIN t_user B
+        ON A.iuser = B.iuser
+        WHERE A.ifeed = ${ifeed}
+        ORDER BY icmt ASC
+        LIMIT 1
+    </select>
+
+    <select id="selFeedCmtList" resultType="FeedCmtDomain">
+        SELECT
+            A.icmt, A.cmt, A.regdt
+            , B.iuser, B.nm as writer, B.mainProfile as writerProfile
+        FROM t_feed_cmt A
+        INNER JOIN t_user B
+        ON A.iuser = B.iuser
+        WHERE A.ifeed = ${ifeed}
+        ORDER BY icmt ASC
+        LIMIT 1, 900000
+    </select>
+
+    <insert id="insFeedCmt">
+        INSERT INTO t_feed_cmt
+        ( ifeed, iuser, cmt )
+        VALUES
+        ( ${ifeed}, ${iuser}, #{cmt} )
+    </insert>
+
+
 </mapper>
