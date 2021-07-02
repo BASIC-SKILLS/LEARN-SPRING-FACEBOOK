@@ -85,15 +85,19 @@
 
     <!-- //////////////////////////// cmt ///////////////////////-->
     <select id="selFeedCmt" resultType="FeedCmtDomain">
-        SELECT
-            A.icmt, A.cmt, A.regdt
-            , B.iuser, B.nm as writer, B.mainProfile as writerProfile
-        FROM t_feed_cmt A
-        INNER JOIN t_user B
-        ON A.iuser = B.iuser
-        WHERE A.ifeed = ${ifeed}
-        ORDER BY icmt ASC
-        LIMIT 1
+        SELECT A.*, COUNT(A.icmt) - 1 AS isMore
+        FROM (
+            SELECT
+                A.icmt, A.cmt, A.regdt, A.ifeed
+                , B.iuser, B.nm as writer, B.mainProfile as writerProfile
+            FROM t_feed_cmt A
+            INNER JOIN t_user B
+            ON A.iuser = B.iuser
+            WHERE A.ifeed = ${ifeed}
+            ORDER BY icmt ASC
+            LIMIT 2
+        ) A
+        GROUP BY A.ifeed
     </select>
 
     <select id="selFeedCmtList" resultType="FeedCmtDomain">

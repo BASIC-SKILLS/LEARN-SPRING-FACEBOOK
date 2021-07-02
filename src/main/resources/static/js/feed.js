@@ -126,6 +126,25 @@ const feedObj = {
             const cmtListDiv = document.createElement('div');
             const cmtFormDiv = document.createElement('div');
             cmtDiv.append(cmtListDiv);
+            if(item.cmt != null && item.cmt.isMore === 1) {
+                const moreCmtDiv = document.createElement('div');
+                const moreCmtSpan = document.createElement('span');
+                moreCmtSpan.className = 'pointer';
+                moreCmtSpan.innerText = '댓글 더보기';
+                moreCmtSpan.addEventListener('click', () => {
+                    moreCmtSpan.remove();
+                    fetch(`cmt?ifeed=${item.ifeed}`)
+                        .then(res => res.json())
+                        .then(result => {
+                            result.forEach(obj => {
+                                const cmtItemContainerDiv = this.makeCmtItem(obj);
+                                cmtListDiv.append(cmtItemContainerDiv);
+                            })
+                        });
+                });
+                moreCmtDiv.append(moreCmtSpan);
+                cmtDiv.append(moreCmtDiv);
+            }
             cmtDiv.append(cmtFormDiv);
 
             const cmtInput = document.createElement('input');
@@ -133,25 +152,7 @@ const feedObj = {
             cmtInput.placeholder = '댓글을 입력하세요...';
 
             if(item.cmt != null) { //댓글 있음
-                const cmtItemContainerDiv = document.createElement('div');
-                cmtItemContainerDiv.className = 'cmtItemCont';
-
-                //프로필
-                const cmtItemProfileDiv = document.createElement('div');
-                cmtItemProfileDiv.className = 'cmtItemProfile';
-                const cmtItemWriterProfileImg = document.createElement('img');
-                cmtItemWriterProfileImg.src = `/pic/profile/${item.cmt.iuser}/${item.cmt.writerProfile}`;
-                cmtItemWriterProfileImg.className = 'profile w30';
-
-                cmtItemProfileDiv.append(cmtItemWriterProfileImg);
-                cmtItemContainerDiv.append(cmtItemProfileDiv);
-
-                //댓글
-                const cmtItemCtntDiv = document.createElement('div');
-                cmtItemCtntDiv.className = 'cmtItemCtnt';
-                cmtItemCtntDiv.innerHTML = `<div>${item.cmt.writer}</div><div>${item.cmt.cmt}</div>`;
-                cmtItemContainerDiv.append(cmtItemCtntDiv);
-
+                const cmtItemContainerDiv = this.makeCmtItem(item.cmt);
                 cmtListDiv.append(cmtItemContainerDiv);
             }
 
@@ -236,6 +237,29 @@ const feedObj = {
             this.hideLoading();
         });
     },
+    makeCmtItem: function({iuser, writerProfile, writer, cmt}) {
+        const cmtItemContainerDiv = document.createElement('div');
+        cmtItemContainerDiv.className = 'cmtItemCont';
+
+        //프로필
+        const cmtItemProfileDiv = document.createElement('div');
+        cmtItemProfileDiv.className = 'cmtItemProfile';
+        const cmtItemWriterProfileImg = document.createElement('img');
+        cmtItemWriterProfileImg.src = `/pic/profile/${iuser}/${writerProfile}`;
+        cmtItemWriterProfileImg.className = 'profile w30';
+
+        cmtItemProfileDiv.append(cmtItemWriterProfileImg);
+        cmtItemContainerDiv.append(cmtItemProfileDiv);
+
+        //댓글
+        const cmtItemCtntDiv = document.createElement('div');
+        cmtItemCtntDiv.className = 'cmtItemCtnt';
+        cmtItemCtntDiv.innerHTML = `<div>${writer}</div><div>${cmt}</div>`;
+        cmtItemContainerDiv.append(cmtItemCtntDiv);
+
+        return cmtItemContainerDiv;
+    },
     hideLoading: function() { this.loadingElem.classList.add('hide');},
     showLoading: function() { this.loadingElem.classList.remove('hide'); }
 }
+

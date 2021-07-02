@@ -41,6 +41,7 @@ public class FeedService {
         return mapper.selFeedList2(param);
     }
 
+    /********************************************    fav [start]  *********/
     public int feedFavProc(FeedFavEntity param, int type) {
         param.setIuser(auth.getLoginUserPk());
         if(type == 1) {
@@ -49,8 +50,15 @@ public class FeedService {
         return mapper.delFeedFav(param);
     }
 
+
+    /********************************************    CMT [start]  *********/
     public int insFeedCmt(FeedCmtEntity param) {
         param.setIuser(auth.getLoginUserPk());
         return mapper.insFeedCmt(param);
     }
+
+    public List<FeedCmtDomain> selFeedCmtList(FeedCmtEntity param) {
+        return mapper.selFeedCmtList(param);
+    }
+    /********************************************    CMT [end]  *********/
 }
