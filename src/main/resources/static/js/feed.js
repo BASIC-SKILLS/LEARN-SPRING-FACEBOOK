@@ -132,6 +132,29 @@ const feedObj = {
             cmtInput.type = 'text';
             cmtInput.placeholder = '댓글을 입력하세요...';
 
+            if(item.cmt != null) { //댓글 있음
+                const cmtItemContainerDiv = document.createElement('div');
+                cmtItemContainerDiv.className = 'cmtItemCont';
+
+                //프로필
+                const cmtItemProfileDiv = document.createElement('div');
+                cmtItemProfileDiv.className = 'cmtItemProfile';
+                const cmtItemWriterProfileImg = document.createElement('img');
+                cmtItemWriterProfileImg.src = `/pic/profile/${item.cmt.iuser}/${item.cmt.writerProfile}`;
+                cmtItemWriterProfileImg.className = 'profile w30';
+
+                cmtItemProfileDiv.append(cmtItemWriterProfileImg);
+                cmtItemContainerDiv.append(cmtItemProfileDiv);
+
+                //댓글
+                const cmtItemCtntDiv = document.createElement('div');
+                cmtItemCtntDiv.className = 'cmtItemCtnt';
+                cmtItemCtntDiv.innerHTML = `<div>${item.cmt.writer}</div><div>${item.cmt.cmt}</div>`;
+                cmtItemContainerDiv.append(cmtItemCtntDiv);
+
+                cmtListDiv.append(cmtItemContainerDiv);
+            }
+
             const cmtBtn = document.createElement('input');
             cmtBtn.type = 'button';
             cmtBtn.value = '등록';
