@@ -23,6 +23,7 @@ const feedObj = {
     itemLength: 0,
     currentPage: 1,
     url: '',
+    iuser: 0,
     swiper: null,
     containerElem: document.querySelector('#feedContainer'),
     loadingElem: document.querySelector('.loading'),
@@ -150,6 +151,11 @@ const feedObj = {
             const cmtInput = document.createElement('input');
             cmtInput.type = 'text';
             cmtInput.placeholder = '댓글을 입력하세요...';
+            cmtInput.addEventListener('keyup', (e) => {
+                if(e.key === 'Enter') {
+                    cmtBtn.click();
+                }
+            });
 
             if(item.cmt != null) { //댓글 있음
                 const cmtItemContainerDiv = this.makeCmtItem(item.cmt);
@@ -234,7 +240,7 @@ const feedObj = {
     getFeedList: function(page) {
         this.showLoading();
 
-        fetch(`${this.url}?page=${page}&limit=${this.limit}`)
+        fetch(`${this.url}?iuserForMyFeed=${this.iuser}&page=${page}&limit=${this.limit}`)
             .then(res => res.json())
             .then(myJson => {
                 console.log(myJson);
