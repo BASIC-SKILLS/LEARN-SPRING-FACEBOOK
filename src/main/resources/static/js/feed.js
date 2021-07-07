@@ -187,6 +187,15 @@ const feedObj = {
                                alert('댓글을 등록할 수 없습니다.');
                                break;
                            case 1:
+                               //댓글 추가한다.
+                               const globalConstElem = document.querySelector('#globalConst');
+
+                               const param = { ...globalConstElem.dataset };
+                               param.cmt = cmtInput.value;
+
+                               const cmtItemDiv = this.makeCmtItem(param);
+                               cmtListDiv.append(cmtItemDiv);
+
                                cmtInput.value = '';
                                break;
                        }
