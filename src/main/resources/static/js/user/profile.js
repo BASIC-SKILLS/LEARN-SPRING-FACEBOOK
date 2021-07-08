@@ -59,14 +59,20 @@ function setMainProfileIcon(iprofile) {
     });
 }
 //모달창 띄우기
-profileImgElem.addEventListener('click', () => {
-    modalElem.classList.remove('hide');
-});
+if(profileImgElem) {
+    profileImgElem.addEventListener('click', () => {
+        modalElem.classList.remove('hide');
+    });
+}
+
 //모달창 닫기
-modalCloseElem.addEventListener('click', () => {
-    modalElem.classList.add('hide');
-    //location.reload();
-});
+if(modalCloseElem) {
+    modalCloseElem.addEventListener('click', () => {
+        modalElem.classList.add('hide');
+        //location.reload();
+    });
+}
+
 
 const localConstElem = document.querySelector('#localConst');
 
