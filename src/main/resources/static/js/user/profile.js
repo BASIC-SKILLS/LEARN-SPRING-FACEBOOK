@@ -1,6 +1,7 @@
 const profileImgElem = document.querySelector('#flexContainer .profile.w300.pointer');
 const modalElem = document.querySelector('section .modal');
 const modalCloseElem = document.querySelector('section .modal .modal_close');
+const btnFollowElem = document.querySelector('#btnFollow'); //팔로우 버튼
 
 //모든 no-main-profile 아이콘에 이벤트를 걸어준다.
 //이벤트는 메인 이미지 변경처리
@@ -73,6 +74,29 @@ if(modalCloseElem) {
     });
 }
 
+btnFollowElem.addEventListener('click', () => {
+    //UserController에 메소드 하나로 팔로우/팔로우 취소 처리를 할 겁니다.
+    //이때, 내가 보내야하는 자료는 무엇무엇인가요?
+    //이 프로필의 유저의 iuser값은 필수
+    //follow값
+    const param = { iuserYou: '' };
+
+    const init = {}
+    let queryString = '';
+    switch(btnFollowElem.dataset.follow) {
+        case 0: //no팔로우 > 팔로우
+            init.method = 'POST';
+            init.body = JSON.stringify(param);
+            break;
+        case 1: //팔로우 > 팔로우취소
+            init.method = 'DELETE';
+            queryString = `?iuserYou=${param.iuserYou}`;
+            break;
+    }
+
+    fetch('follow' + queryString, init)
+        .then(res => res.json())
+});
 
 const localConstElem = document.querySelector('#localConst');
 
