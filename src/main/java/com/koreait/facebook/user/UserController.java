@@ -54,6 +54,7 @@ public class UserController {
         param2.setYouIuser(param.getIuser());
         if(param2.getYouIuser() == 0) {
             param2.setYouIuser(userDetails.getUser().getIuser());
+            param.setIuser(userDetails.getUser().getIuser());
         }
         model.addAttribute(myConst.PROFILE, service.selUserProfile(param2));
         model.addAttribute(myConst.PROFILE_LIST, service.selUserProfileList(param));

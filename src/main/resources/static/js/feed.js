@@ -44,7 +44,7 @@ const feedObj = {
             // 글쓴이 정보 영역
             let imgTag = ``;
             if(item.mainProfile != null) {
-                imgTag = `<img src="/pic/profile/${item.iuser}/${item.mainProfile}" class="pointer" 
+                imgTag = `<img src="/pic/profile/${item.iuser}/${item.mainProfile}" class="pointer profile wh30" 
                 onclick="moveToProfile(${item.iuser});" onerror="this.style.display='none';">`;
             }
             const regDtInfo = getDateTimeInfo(item.regdt);
@@ -269,7 +269,7 @@ const feedObj = {
         cmtItemProfileDiv.className = 'cmtItemProfile';
         const cmtItemWriterProfileImg = document.createElement('img');
         cmtItemWriterProfileImg.src = `/pic/profile/${iuser}/${writerProfile}`;
-        cmtItemWriterProfileImg.className = 'profile w30 pointer';
+        cmtItemWriterProfileImg.className = 'profile wh30 pointer';
         cmtItemWriterProfileImg.addEventListener('click', () => {
             moveToProfile(iuser);
         });

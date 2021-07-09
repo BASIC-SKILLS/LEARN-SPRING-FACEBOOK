@@ -49,8 +49,7 @@
                         </td>
                     </tr>
                 </table>
-                <img class="profile w300 pointer" th:if="${profile.mainProfile != null}"
-                     th:src="@{/pic/profile/{iuser}/{img}(iuser=${profile.iuser}, img=${profile.mainProfile})}">
+                <img class="pointer profile wh300" id="profileImg" th:src="@{/pic/profile/{iuser}/{img}(iuser=${profile.iuser}, img=${profile.mainProfile})}" onerror="this.onerror=null; this.style.display='none';">
                 <table>
                     <tr>
                         <th>email</th>
