@@ -75,20 +75,16 @@ if(modalCloseElem) {
 }
 
 btnFollowElem.addEventListener('click', () => {
-    //UserController에 메소드 하나로 팔로우/팔로우 취소 처리를 할 겁니다.
-    //이때, 내가 보내야하는 자료는 무엇무엇인가요?
-    //이 프로필의 유저의 iuser값은 필수
-    //follow값
-    const param = { iuserYou: '' };
-
+    const param = { iuserYou: localConstElem.dataset.iuser };
     const init = {}
     let queryString = '';
     switch(btnFollowElem.dataset.follow) {
-        case 0: //no팔로우 > 팔로우
+        case '0': //no팔로우 > 팔로우
             init.method = 'POST';
+            init.headers = { 'Content-Type': 'application/json' };
             init.body = JSON.stringify(param);
             break;
-        case 1: //팔로우 > 팔로우취소
+        case '1': //팔로우 > 팔로우취소
             init.method = 'DELETE';
             queryString = `?iuserYou=${param.iuserYou}`;
             break;
@@ -96,6 +92,9 @@ btnFollowElem.addEventListener('click', () => {
 
     fetch('follow' + queryString, init)
         .then(res => res.json())
+        .then(myJson => {
+            console.log(myJson);
+        });
 });
 
 const localConstElem = document.querySelector('#localConst');

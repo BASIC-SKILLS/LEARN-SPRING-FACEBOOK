@@ -79,16 +79,14 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/follow")
-    public int doFollow(@RequestBody UserFollowEntity param) {
-        System.out.println(param);
-        return 0;
+    public Map<String, Object> doFollow(@RequestBody UserFollowEntity param) {
+        return service.insUserFollow(param);
     }
 
     @ResponseBody
     @DeleteMapping("/follow")
-    public int cancelFollow(UserFollowEntity param) {
-        System.out.println(param);
-        return 0;
+    public Map<String, Object> cancelFollow(UserFollowEntity param) {
+        return service.delUserFollow(param);
     }
 }
 
