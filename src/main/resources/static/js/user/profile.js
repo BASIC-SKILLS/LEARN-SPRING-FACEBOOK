@@ -94,6 +94,18 @@ btnFollowElem.addEventListener('click', () => {
         .then(res => res.json())
         .then(myJson => {
             console.log(myJson);
+            if(myJson.result === 1) {
+                let buttnNm = '팔로우 취소';
+                if(btnFollowElem.dataset.follow === '1') {
+                    if(myJson.youFollowMe == null) { buttnNm = '팔로우'; }
+                    else { buttnNm = '맞팔로우'; }
+                }
+                btnFollowElem.classList.toggle('instaBtnEnable');
+                btnFollowElem.value = buttnNm;
+                btnFollowElem.dataset.follow = 1 - btnFollowElem.dataset.follow;
+            } else {
+                alert('에러가 발생하였습니다.');
+            }
         });
 });
 
