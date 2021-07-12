@@ -125,13 +125,17 @@ feedObj.getFeedList(1);
 const followerElemArr = document.querySelectorAll('.pointer.follower');
 const followElemArr = document.querySelectorAll('.pointer.follow');
 const modalFollowElem = document.querySelector('.modal-follow');
+const modalFollowTitleElem = modalFollowElem.querySelector('#title');
 const modalFollowCloseElem = document.querySelector('.modal-follow #modal-follow-close');
 const modalFollowItemConElem = modalFollowElem.querySelector('.followCont');
 
 if(followerElemArr) {
     followerElemArr.forEach(item => {
         item.addEventListener('click', () => {
+            modalFollowTitleElem.innerText = '팔로워';
             modalFollowElem.classList.remove('hide');
+            modalFollowItemConElem.innerHTML = '';
+
         });
     });
 }
@@ -139,9 +143,10 @@ if(followerElemArr) {
 if(followElemArr) {
     followElemArr.forEach(item => {
         item.addEventListener('click', () => {
+            modalFollowTitleElem.innerText = '팔로우';
             modalFollowElem.classList.remove('hide');
-
             modalFollowItemConElem.innerHTML = '';
+
             //프로필 사용자가 팔로우한 사람들 리스트
             fetch(`getFollowList?iuserYou=${localConstElem.dataset.iuser}`)
                 .then(res => res.json())
@@ -164,20 +169,28 @@ if(modalFollowCloseElem) {
 }
 
 function makeFollowItem(item) {
-    const myIuser = localConstElem.dataset.iuser;
+    const globalContElem = document.querySelector('#globalConst');
+    const loginIuser = globalContElem.dataset.iuser;
 
     const cont = document.createElement('div');
     cont.className = 'follow-item';
     const img = document.createElement('img');
+    img.className = 'profile wh30';
+    img.src = `/pic/profile/${item.iuser}/${item.mainProfile}`;
+    img.onerror = () => { img.style.visibility = 'hidden'; }
+
     const nm = document.createElement('div');
+    nm.innerText = item.nm;
     const btn = document.createElement('input');
+    btn.className = 'instaBtn';
     cont.append(img);
     cont.append(nm);
-    if(myIuser !== item.iuser) {
+    if(parseInt(loginIuser) !== item.iuser) {
         btn.type = 'button';
         if(item.isMeFollowYou) {
             btn.value = '팔로우 취소';
         } else {
+            btn.classList.add('instaBtnEnable');
             btn.value = '팔로우';
         }
         cont.append(btn);

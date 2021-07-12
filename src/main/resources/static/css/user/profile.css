@@ -10,7 +10,9 @@ section { display: flex; flex-direction: column; align-items: center; }
 .modal-follow .container > div.top { height: 33px; }
 .modal-follow .container #title { text-align: center; padding-top: 5px; padding-bottom: 5px; }
 .modal-follow .container i { position: absolute; right: 15px; top: 5px; font-size: 25px; color: #5a5959; }
-.modal-follow .container .followCont { height: 367px; border-top: 1px solid #d3d3d3; }
+.modal-follow .container .followCont { overflow-y: auto; height: 367px; border-top: 1px solid #d3d3d3; }
+.modal-follow .container .followCont .follow-item { display: flex; padding-left: 8px; padding-right: 8px; margin-top: 8px; }
+.modal-follow .container .followCont .follow-item > div { flex-grow: 1; margin-left: 5px; }
 
 .modal .swiper-container { height: 40vw; width: 90vw; }
 .modal .swiper-slide { display: flex; justify-content: center; }
