@@ -5,13 +5,10 @@ const btnFollowElem = document.querySelector('#btnFollow'); //팔로우 버튼
 const profileImgElem = document.querySelector('#profileImg');
 
 
-
 //모달창 띄우기 이벤트
 profileImgElem.addEventListener('click', () => {
     modalElem.classList.remove('hide');
 });
-
-
 
 //모든 no-main-profile 아이콘에 이벤트를 걸어준다.
 //이벤트는 메인 이미지 변경처리
@@ -122,3 +119,68 @@ feedObj.url = '/user/feedList';
 feedObj.setScrollInfinity(window);
 feedObj.iuser = localConstElem.dataset.iuser;
 feedObj.getFeedList(1);
+
+
+/******************************************************** 팔로우 모달 **/
+const followerElemArr = document.querySelectorAll('.pointer.follower');
+const followElemArr = document.querySelectorAll('.pointer.follow');
+const modalFollowElem = document.querySelector('.modal-follow');
+const modalFollowCloseElem = document.querySelector('.modal-follow #modal-follow-close');
+const modalFollowItemConElem = modalFollowElem.querySelector('.followCont');
+
+if(followerElemArr) {
+    followerElemArr.forEach(item => {
+        item.addEventListener('click', () => {
+            modalFollowElem.classList.remove('hide');
+        });
+    });
+}
+
+if(followElemArr) {
+    followElemArr.forEach(item => {
+        item.addEventListener('click', () => {
+            modalFollowElem.classList.remove('hide');
+
+            modalFollowItemConElem.innerHTML = '';
+            //프로필 사용자가 팔로우한 사람들 리스트
+            fetch(`getFollowList?iuserYou=${localConstElem.dataset.iuser}`)
+                .then(res => res.json())
+                .then(myJson => {
+                    if(myJson.length > 0) {
+                        myJson.forEach(item => {
+                            const cont = makeFollowItem(item);
+                            modalFollowItemConElem.append(cont);
+                        });
+                    }
+                });
+        });
+    });
+}
+
+if(modalFollowCloseElem) {
+    modalFollowCloseElem.addEventListener('click', () => {
+        modalFollowElem.classList.add('hide');
+    });
+}
+
+function makeFollowItem(item) {
+    const myIuser = localConstElem.dataset.iuser;
+
+    const cont = document.createElement('div');
+    cont.className = 'follow-item';
+    const img = document.createElement('img');
+    const nm = document.createElement('div');
+    const btn = document.createElement('input');
+    cont.append(img);
+    cont.append(nm);
+    if(myIuser !== item.iuser) {
+        btn.type = 'button';
+        if(item.isMeFollowYou) {
+            btn.value = '팔로우 취소';
+        } else {
+            btn.value = '팔로우';
+        }
+        cont.append(btn);
+    }
+    return cont;
+}
