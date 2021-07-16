@@ -8,10 +8,9 @@ import com.koreait.facebook.feed.FeedMapper;
 import com.koreait.facebook.feed.model.FeedDTO;
 import com.koreait.facebook.feed.model.FeedDomain2;
 import com.koreait.facebook.security.IAuthenticationFacade;
-import com.koreait.facebook.security.model.UserDetailsServiceImpl;
+import com.koreait.facebook.security.UserDetailsServiceImpl;
 import com.koreait.facebook.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,6 +39,7 @@ public class UserService {
         String hashedPw = passwordEncoder.encode(param.getPw());
         param.setPw(hashedPw);
         param.setAuthCd(authCd);
+        param.setProvider("local");
         int result = userDetailService.join(param);
 
         if(result == 1) { //메일 쏘기!! (id, authcd값을 메일로 쏜다.)

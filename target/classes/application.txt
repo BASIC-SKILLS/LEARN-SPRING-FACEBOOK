@@ -33,22 +33,23 @@ spring:
             google:
               client-id: your-client-id
               client-secret: your-client-secret
-              redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
               scope:
                 - profile
                 - email
             facebook:
               client-id: your-client-id
               client-secret: your-client-secret
-              redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+              scope:
+                - email
+                - public_profile
             kakao:
               authorization-grant-type: authorization_code
               client-id: your-client-id
               client-secret: your-client-secret
               redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
               scope:
-                - profile
-                - account_email
+                - profile_nickname
+                - profile_image
               client-authentication-method: POST
               client-name: Kakao
             naver:
@@ -56,7 +57,7 @@ spring:
               client-id: your-client-id
               client-secret: your-client-secret
               redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-              scope: name,email,profile_image
+              scope: name,profile_image
               client-name: Naver
 
           provider:
